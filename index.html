@@ -6,7 +6,7 @@
 <title>Dom Sarmento — Atalhos</title>
 <meta name="description" content="Atalhos rápidos e galeria de fotos." />
 <style>
-/* ===== Design Tokens (base neutra + temas) ===== */
+/* ===== Design Tokens (base neutra + tema âmbar) ===== */
 :root{
   --radius:16px;
   --shadow:0 10px 28px rgba(0,0,0,.20);
@@ -23,25 +23,19 @@
   --accent-2:#ff8f40;
   --accent-weak:rgba(242,180,75,.55);
 }
+.theme-amber{ --accent-1:#f2b44b; --accent-2:#ff8f40; --accent-weak:rgba(242,180,75,.55); }
 
-/* Temas extras que você pode usar depois */
-.theme-neutral{ --accent-1:#7b8cff; --accent-2:#5cc8ff; --accent-weak:rgba(92,168,255,.45); }
-.theme-ocean{   --accent-1:#4c7dff; --accent-2:#2ed1ff; --accent-weak:rgba(76,125,255,.50); }
-.theme-amber{   --accent-1:#f2b44b; --accent-2:#ff8f40; --accent-weak:rgba(242,180,75,.55); }
-.theme-emerald{ --accent-1:#34d399; --accent-2:#22c1b4; --accent-weak:rgba(34,193,180,.50); }
-.theme-rose{    --accent-1:#ff6b8a; --accent-2:#ff9fb0; --accent-weak:rgba(255,107,138,.55); }
-
-/* ===== Reset ===== */
 *{box-sizing:border-box} html,body{height:100%}
 body{
   margin:0; font:500 16px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
   color:var(--text);
-  background:var(--bg) center/cover fixed no-repeat; /* a imagem entra via inline-style no JS */
+  background:var(--bg) center/cover fixed no-repeat; /* a imagem entra via JS */
   overflow-x:hidden;
 }
-a{color:inherit; text-decoration:none} img{max-width:100%; display:block}
+a{color:inherit; text-decoration:none}
+img{max-width:100%; display:block}
 
-/* ===== Overlay de degradê (sem blur) ===== */
+/* Degradê por cima do fundo (sem blur) */
 .bg-overlay{
   position:fixed; inset:0; z-index:-1;
   background:
@@ -54,21 +48,14 @@ a{color:inherit; text-decoration:none} img{max-width:100%; display:block}
 .wrapper{min-height:100%; display:grid; grid-template-rows:auto 1fr auto;}
 .container{ width:100%; max-width:980px; margin:0 auto; padding:24px 16px; }
 
-/* Header com logo grande central */
-.header{
-  display:flex; flex-direction:column; align-items:flex-start; gap:12px; padding:8px 0 2px;
-}
-.brand-logo{
-  width:auto; height:86px; /* logo grande */
-}
+/* Header */
+.header{ display:flex; flex-direction:column; align-items:flex-start; gap:12px; padding:8px 0 2px; }
+.brand-logo{ width:auto; height:86px; }            /* LOGO GRANDE */
 .brand-name-line{ display:flex; align-items:baseline; gap:10px; }
 .brand-title{font-weight:900; letter-spacing:.3px; font-size:26px}
 .brand-sub{color:var(--muted); font-size:14px; margin-top:2px}
-
-/* Legenda grande abaixo da logo */
 .big-legend{
-  margin-top:8px;
-  font-weight:900; letter-spacing:.4px; font-size:18px;
+  margin-top:8px; font-weight:900; letter-spacing:.4px; font-size:18px;
   color: color-mix(in oklab, var(--accent-1) 75%, #ffffff 25%);
   text-transform: uppercase;
 }
@@ -76,8 +63,7 @@ a{color:inherit; text-decoration:none} img{max-width:100%; display:block}
 /* Card principal */
 .card{
   margin-top:14px; background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-  border-radius:var(--radius); box-shadow:var(--shadow); padding:18px;
-  border:1px solid var(--ring);
+  border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; border:1px solid var(--ring);
 }
 .card .cta{
   margin-top:12px; display:inline-flex; align-items:center; gap:10px;
@@ -88,42 +74,53 @@ a{color:inherit; text-decoration:none} img{max-width:100%; display:block}
 }
 .card .cta:active{ transform:translateY(1px) }
 
-/* Lista de ações */
+/* Botões (ícones grandes) */
 .actions{margin-top:16px; display:grid; gap:14px}
 .action{
   display:flex; align-items:center; gap:14px;
   background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-  border:1px solid var(--ring);
-  border-radius:var(--radius); padding:16px 18px;
-  box-shadow:var(--shadow-soft);
-  transition:transform .06s ease, border-color .2s ease, background .2s ease;
+  border:1px solid var(--ring); border-radius:var(--radius);
+  padding:16px 18px; box-shadow:var(--shadow-soft); transition:transform .06s ease, border-color .2s ease;
 }
 .action:active{ transform:translateY(1px) }
 .action:hover{ border-color: var(--accent-weak); }
 
-/* Ícones GRANDES 48px (SVG 26px) */
-.action-icon{
+.action-icon{   /* 48px */
   width:48px; height:48px; display:grid; place-items:center; border-radius:14px;
   background:linear-gradient(180deg, var(--surface-2), var(--surface));
   border:1px solid var(--ring);
 }
 .action-title{font-weight:800; letter-spacing:.2px; font-size:17px}
 .action-desc{font-size:13px; color:var(--muted); margin-top:2px}
-
 .action .right{ margin-left:auto; display:none }
-
-/* Rodapé */
-.footer{ opacity:.85; font-size:12px; color:var(--muted); text-align:center; padding:22px 0 32px }
 
 /* ===== Galeria / Carrossel ===== */
 .section{ margin-top:28px; }
 .gallery-title{ font-weight:800; font-size:18px; margin:6px 0 12px 2px; }
 .carousel{ position:relative; }
-.car-viewport{ overflow:hidden; border-radius:18px; border:1px solid var(--ring); box-shadow:var(--shadow); }
-.car-track{ display:flex; width:100%; transition:transform .45s ease; }
-.car-slide{ min-width:100%; aspect-ratio: 16/9; background:#000; }
-.car-slide img{ width:100%; height:100%; object-fit:cover; display:block; }
 
+/* Viewport controla a ALTURA — nada vai “estourar” */
+.car-viewport{
+  overflow:hidden; border-radius:18px; border:1px solid var(--ring); box-shadow:var(--shadow);
+  width:100%;
+  aspect-ratio: 16 / 9;        /* altura proporcional */
+  max-height: 420px;           /* trava em telas altas */
+}
+@media (max-width:520px){
+  .car-viewport{ aspect-ratio: 4 / 3; max-height: 360px; }
+}
+
+/* Trilho e slides */
+.car-track{ display:flex; height:100%; transition:transform .45s ease; }
+.car-slide{ min-width:100%; height:100%; overflow:hidden; background:#000; }
+.car-slide img{
+  width:100%; height:100%;
+  object-fit: cover;           /* cobre sem distorcer e não passa dos limites */
+  object-position: center;
+  display:block;
+}
+
+/* Setas */
 .car-arrow{
   position:absolute; top:50%; transform:translateY(-50%);
   width:46px; height:46px; border-radius:999px; border:1px solid var(--ring);
@@ -135,7 +132,9 @@ a{color:inherit; text-decoration:none} img{max-width:100%; display:block}
 .car-arrow.prev{ left:8px }
 .car-arrow.next{ right:8px }
 
-/* Responsivo */
+/* Rodapé */
+.footer{ opacity:.85; font-size:12px; color:var(--muted); text-align:center; padding:22px 0 32px }
+
 @media (min-width:560px){
   .brand-logo{ height:94px; }
   .big-legend{ font-size:20px }
@@ -144,7 +143,6 @@ a{color:inherit; text-decoration:none} img{max-width:100%; display:block}
 </style>
 </head>
 <body>
-  <!-- Apenas o degradê por cima do background (sem blur) -->
   <div class="bg-overlay"></div>
 
   <div class="wrapper" id="app">
@@ -159,8 +157,7 @@ a{color:inherit; text-decoration:none} img{max-width:100%; display:block}
       </header>
 
       <section class="card">
-        <div style="font-weight:800; font-size:18px" id="heroTitle">Tradição e estilo em cada corte</div>
-        <div class="brand-sub" id="heroSub">Agende, avalie e fale com a gente em um clique.</div>
+        <div style="font-weight:800; font-size:18px" id="heroTitle">Agende, avalie e fale com a gente em um clique.</div>
         <a class="cta" id="btnAgendar" href="#" target="_blank" rel="noopener">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 2v3M17 2v3M3 10h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -171,7 +168,6 @@ a{color:inherit; text-decoration:none} img{max-width:100%; display:block}
 
       <div class="actions" id="actions"></div>
 
-      <!-- GALERIA -->
       <section class="section">
         <div class="gallery-title">Galeria</div>
         <div class="carousel" id="galeria">
@@ -193,12 +189,14 @@ a{color:inherit; text-decoration:none} img{max-width:100%; display:block}
 /* ========= CONFIG ========= */
 const CONFIG = {
   theme: "theme-amber",
-  backgroundImage: "./fundo-dom-sarmento.jpg",     // use sua foto de ambiente
-  logo: "./logotipo-dom-sarmento.png",              // seu arquivo de logo
+
+  /* CORRI os caminhos para bater com o seu repositório */
+  backgroundImage: "./background-dom-sarmento.jpg",
+  logo: "./logo-dom-sarmento.png",
 
   brandName: "Dom Sarmento",
   brandSub: "Barbearia • Centro",
-  bigLegend: "TRADIÇÃO E ESTILO EM CADA CORTE",     // legenda grande abaixo da logo
+  bigLegend: "TRADIÇÃO E ESTILO EM CADA CORTE",
 
   heroTitle: "Tradição e estilo em cada corte",
   heroSub: "Agende, avalie e fale com a gente em um clique.",
@@ -216,12 +214,13 @@ const CONFIG = {
     { icon:"pix", kind:"copyAnywhere", title:"Pagamento via PIX", desc:"@domsarmento", url:"javascript:void(0)", copy:"49991746304" }
   ],
 
+  /* Usei os nomes com dois-pontos (URL encoded) que estão na pasta */
   gallery: [
-  "./assets/galeria/media%3Agaleria1.jpg",
-  "./assets/galeria/media%3Agaleria2.jpg",
-  "./assets/galeria/media%3Agaleria3.jpg",
-  "./assets/galeria/media%3Agaleria4.jpg"
-]
+    "./assets/galeria/media%3Agaleria1.jpg",
+    "./assets/galeria/media%3Agaleria2.jpg",
+    "./assets/galeria/media%3Agaleria3.jpg",
+    "./assets/galeria/media%3Agaleria4.jpg"
+  ]
 };
 
 /* ========= Ícones (26px) ========= */
@@ -250,10 +249,9 @@ function toast(msg){
 
 /* ========= Render ========= */
 (function init(){
-  // aplica tema
   document.documentElement.classList.add(CONFIG.theme || 'theme-amber');
 
-  // plano de fundo sem blur (aplica direto no body)
+  /* aplica a IMAGEM DE FUNDO no body */
   if (CONFIG.backgroundImage) {
     document.body.style.backgroundImage = `url('${CONFIG.backgroundImage}')`;
   }
@@ -268,14 +266,13 @@ function toast(msg){
   $('heroCtaText').textContent = CONFIG.heroCta?.label || 'Agendar horário';
   $('footer').textContent = CONFIG.footer || '';
 
-  // ações
+  // Ações
   const actionsEl = $('actions'); actionsEl.innerHTML = '';
   CONFIG.actions.forEach(a=>{
     const li = document.createElement('a');
     li.className = 'action';
     li.href = a.url || 'javascript:void(0)';
     if(a.url?.startsWith('http')){ li.target = '_blank'; li.rel = 'noopener'; }
-
     li.innerHTML = `
       <div class="action-icon">${icons[a.icon] || ''}</div>
       <div style="display:grid">
@@ -286,7 +283,6 @@ function toast(msg){
     `;
     actionsEl.appendChild(li);
 
-    // Wi-Fi: copia e (Android) abre Ajustes
     if (a.kind === 'wifi') {
       li.addEventListener('click', async (ev)=>{
         ev.preventDefault();
@@ -295,8 +291,6 @@ function toast(msg){
         if (isAndroid) openAndroidWifiSettings();
       }, {passive:false});
     }
-
-    // PIX: copia ao clicar
     if (a.kind === 'copyAnywhere' && a.copy) {
       li.addEventListener('click', async (ev)=>{
         ev.preventDefault();
@@ -318,10 +312,10 @@ function toast(msg){
     else                window.location.href = WEB_FALLBACK;
   });
 
-  // Galeria
+  // Galeria (renderiza só as imagens existentes)
   const track = document.getElementById('carTrack');
-  track.innerHTML = CONFIG.gallery.map((src,i)=>(
-    `<div class="car-slide"><img src="${src}" alt="Galeria ${i+1}"></div>`
+  track.innerHTML = (CONFIG.gallery || []).map((src,i)=>(
+    `<div class="car-slide"><img src="${src}" alt="Galeria ${i+1}" loading="lazy"></div>`
   )).join('');
   initCarousel('galeria', 4000);
 })();
