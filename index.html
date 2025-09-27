@@ -7,123 +7,125 @@
 <style>
 :root{
   --radius:18px;
-  --bg:#0b0d11;
-  --text:#f6f7fb;
-  --muted:#c8cbd8;
-  --card-1:#141821;   /* topo do card */
-  --card-2:#10141c;   /* base do card */
-  --card-border:rgba(255,255,255,.10);
-  --card-gloss:rgba(255,255,255,.06);
+  --text:#f6f7fb; --muted:#c8cbd8;
+
+  /* fundo */
+  --bg-dark:#0b0d11;
+
+  /* navy brilhante dos botões/cards */
+  --btn-top:#3f69be;     /* brilho no topo */
+  --btn-mid:#224c99;     /* meio */
+  --btn-bottom:#0f2d5a;  /* base */
+  --btn-border:rgba(144,185,255,.45);
+  --btn-gloss:rgba(255,255,255,.14);
+
+  /* títulos / destaque */
   --accent-1:#f2b44b;
-  --accent-2:#ff8f40;
 }
+
 *{box-sizing:border-box} html,body{height:100%}
 body{
   margin:0; color:var(--text);
   font:500 16px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-  background:var(--bg) center/cover fixed no-repeat; /* imagem aplicada via JS */
+  background:var(--bg-dark);
   overflow-x:hidden;
 }
-a{color:inherit;text-decoration:none}
-img{display:block; max-width:100%}
 
-/* Overlay de contraste (sem blur) */
-.bg-overlay{position:fixed; inset:0; z-index:-1;
+/* ===== CAMADAS DE FUNDO ===== */
+.bg-img{
+  position:fixed; inset:-8px; z-index:-2;
+  background:center/cover no-repeat;
+  filter: blur(14px) brightness(.8);    /* <<< desfoque forte */
+  transform: scale(1.06);               /* evita borda do blur */
+}
+.bg-overlay{
+  position:fixed; inset:0; z-index:-1;
   background:
-    radial-gradient(1100px 600px at 10% -10%, color-mix(in oklab, var(--accent-1) 26%, transparent), transparent 60%),
-    radial-gradient(1000px 650px at 110% 110%, color-mix(in oklab, var(--accent-2) 16%, transparent), transparent 60%),
-    linear-gradient(180deg, rgba(6,10,18,.40), rgba(6,10,18,.78));
+    radial-gradient(1000px 600px at 10% -10%, rgba(15,45,90,.45), transparent 60%),
+    radial-gradient(900px 550px at 110% 110%, rgba(34,76,153,.35), transparent 60%),
+    linear-gradient(180deg, rgba(7,9,14,.50), rgba(7,9,14,.80));
 }
 
-/* Layout */
+/* ===== LAYOUT ===== */
 .wrapper{min-height:100%; display:grid; grid-template-rows:auto 1fr auto;}
 .container{max-width:980px; margin:0 auto; padding:24px 16px}
 
-/* Header centralizado */
 .header{display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center}
-.brand-logo{height:120px; width:auto}         /* LOGO MAIOR */
+.brand-logo{height:120px; width:auto}
 .brand-title{font-weight:900; font-size:28px; letter-spacing:.3px}
 .brand-sub{color:var(--muted); font-size:14px}
 .big-legend{margin-top:6px; font-weight:900; letter-spacing:.4px; font-size:18px;
   color:color-mix(in oklab, var(--accent-1) 75%, #fff 25%); text-transform:uppercase}
 
-/* Card padrão (escuro premium) */
-.card{
+/* ===== CARDS / BOTÕES: NAVY GLOSSY ===== */
+.card, .action, .cta{
   background:
-    linear-gradient(180deg, var(--card-1), var(--card-2));
-  border:1px solid var(--card-border);
-  box-shadow:
-    inset 0 1px 0 var(--card-gloss),
-    0 10px 24px rgba(0,0,0,.25);
+    linear-gradient(180deg, var(--btn-gloss), transparent 38%),
+    linear-gradient(175deg, var(--btn-top), var(--btn-mid) 48%, var(--btn-bottom));
+  border:1px solid var(--btn-border);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 12px 28px rgba(5,12,28,.35);
   border-radius:var(--radius);
-  padding:16px 18px;
 }
+.card{padding:16px 18px}
+.card:active, .action:active, .cta:active{ transform:translateY(1px) }
+.card, .action, .cta{ transition:transform .06s ease, border-color .2s ease }
+.card:hover, .action:hover, .cta:hover{ border-color:rgba(170,205,255,.75) }
 
-/* CTA com o mesmo visual dos cards */
-.cta{display:flex; align-items:center; gap:12px; border-radius:14px; padding:14px 16px;
-  background:
-    linear-gradient(180deg, #252a33, #1a1f28);
-  border:1px solid var(--card-border);
-  box-shadow: inset 0 1px 0 var(--card-gloss);
-}
+.cta{display:flex; align-items:center; gap:12px; padding:16px 18px; margin-top:10px}
 .cta-icon{width:46px; height:46px; display:grid; place-items:center; border-radius:12px;
-  background:linear-gradient(180deg, #20242c, #161a21); border:1px solid var(--card-border)}
+  background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.22)}
 .cta-title{font-weight:800; font-size:17px}
 
-/* Lista de ações */
 .actions{display:grid; gap:14px; margin-top:14px}
-.action{display:flex; align-items:center; gap:12px; padding:16px 18px; border-radius:var(--radius); transition:transform .06s ease}
-.action:active{transform:translateY(1px)}
+.action{display:flex; align-items:center; gap:12px; padding:16px 18px}
 .action .icon{width:46px; height:46px; display:grid; place-items:center; border-radius:12px;
-  background:linear-gradient(180deg, #20242c, #161a21); border:1px solid var(--card-border)}
+  background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.22)}
 .action .t1{font-weight:800; font-size:17px}
-.action .t2{color:var(--muted); font-size:13px; margin-top:2px}
+.action .t2{color:#e4e9ff; opacity:.8; font-size:13px; margin-top:2px}
 
-/* Legenda antes da galeria */
+/* ===== GALERIA ===== */
 .gallery-pre{margin-top:26px; text-align:center; font-size:16px; font-weight:500}
-
-/* Galeria — estável e sem “explodir” */
 .section{margin-top:16px}
 .gallery-title{text-align:center; font-weight:800; font-size:18px; margin:6px 0 12px}
 .carousel{position:relative}
 .car-viewport{
   width:100%; aspect-ratio:16/9; max-height:420px; margin:auto;
-  overflow:hidden; border-radius:18px; border:1px solid var(--card-border);
-  background:#0c0e12; box-shadow:0 10px 24px rgba(0,0,0,.25);
+  overflow:hidden; border-radius:18px; border:1px solid rgba(200,220,255,.25);
+  background:rgba(10,14,20,.65);
+  box-shadow:0 12px 28px rgba(5,12,28,.35);
 }
 @media (max-width:520px){ .car-viewport{ aspect-ratio:4/3; max-height:360px } }
 .car-track{display:flex; height:100%; transition:transform .45s ease}
-.car-slide{min-width:100%; height:100%; background:#0c0e12}
+.car-slide{min-width:100%; height:100%}
 .car-slide img{
   width:100%; height:100%;
-  object-fit:cover;              /* >>> preenche sem distorcer e sem “explodir” */
+  object-fit:cover;              /* preenche sem distorcer nem “explodir” */
   object-position:center;
 }
 .car-arrow{
   position:absolute; top:50%; transform:translateY(-50%);
   width:44px; height:44px; border-radius:999px;
-  border:1px solid var(--card-border);
-  background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+  border:1px solid rgba(200,220,255,.35);
+  background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
   color:#fff; font-size:22px; display:grid; place-items:center; cursor:pointer;
 }
-.car-arrow.prev{left:8px} .car-arrow.next{right:8px}
 
-/* Footer */
-.footer{color:var(--muted); font-size:12px; text-align:center; padding:22px 0 32px}
+.footer{color:#ced6f3; font-size:12px; text-align:center; padding:22px 0 32px}
 
 /* Desktop */
 @media (min-width:800px){
-  .brand-logo{height:160px}     /* ainda maior no desktop */
+  .brand-logo{height:160px}
   .brand-title{font-size:32px}
 }
 </style>
 </head>
 <body>
+  <!-- FUNDO: imagem desfocada + overlay -->
+  <div class="bg-img" id="bgLayer"></div>
   <div class="bg-overlay"></div>
 
   <div class="wrapper">
     <div class="container">
-      <!-- HEADER -->
       <header class="header">
         <img id="brandLogo" class="brand-logo" alt="Logo">
         <div class="brand-title" id="brandName">Dom Sarmento</div>
@@ -131,8 +133,7 @@ img{display:block; max-width:100%}
         <div class="big-legend" id="bigLegend">TRADIÇÃO E ESTILO EM CADA CORTE</div>
       </header>
 
-      <!-- CARD + CTA (mesma pegada dos botões, alinhado à esquerda) -->
-      <section class="card" id="topCard">
+      <section class="card">
         <div style="font-weight:800; font-size:18px; margin-bottom:10px" id="heroTitle">
           Agende, avalie e fale com a gente em um clique.
         </div>
@@ -146,11 +147,12 @@ img{display:block; max-width:100%}
         </a>
       </section>
 
-      <!-- AÇÕES -->
       <div class="actions" id="actions"></div>
 
-      <!-- LEGENDA + GALERIA -->
-      <div class="gallery-pre" id="galleryTitleLegend">MAIS QUE CORTES, UMA EXPERIÊNCIA DOM SARMENTO</div>
+      <div class="gallery-pre" id="galleryTitleLegend">
+        MAIS QUE CORTES, UMA EXPERIÊNCIA DOM SARMENTO
+      </div>
+
       <section class="section">
         <div class="gallery-title">Galeria</div>
         <div class="carousel" id="galeria">
@@ -167,7 +169,7 @@ img{display:block; max-width:100%}
   </div>
 
 <script>
-/* ===== CONFIG — use exatamente os nomes do seu repo ===== */
+/* ===== CONFIG (ajuste os caminhos se usar outros nomes) ===== */
 const CONFIG = {
   backgroundImage: "./background-dom-sarmento.jpg",
   logo: "./logo-dom-sarmento.png",
@@ -179,11 +181,11 @@ const CONFIG = {
   footer: "Dom Sarmento © 2025 • @domsarmento",
   wifi: { password: "91011070" },
   actions: [
-    { icon:"wifi", kind:"wifi",  title:"Conectar ao Wi-Fi", desc:"Internet liberada para clientes", url:"#"},
+    { icon:"wifi", kind:"wifi",  title:"Conectar ao Wi-Fi",     desc:"Internet liberada para clientes", url:"#"},
     { icon:"star",             title:"Avaliações no Google", desc:"Conte como foi a sua experiência", url:"https://g.page/r/SEU_ID/review" },
-    { icon:"ig",               title:"Instagram oficial", desc:"@domsarmento", url:"https://instagram.com/domsarmento" },
-    { icon:"wa",               title:"WhatsApp", desc:"Fale direto com recepção", url:"https://wa.me/5549991746304" },
-    { icon:"pix", kind:"copy", title:"Pagamento via PIX", desc:"@domsarmento", url:"javascript:void(0)", copy:"49991746304" }
+    { icon:"ig",               title:"Instagram oficial",    desc:"@domsarmento", url:"https://instagram.com/domsarmento" },
+    { icon:"wa",               title:"WhatsApp",             desc:"Fale direto com recepção", url:"https://wa.me/5549991746304" },
+    { icon:"pix", kind:"copy", title:"Pagamento via PIX",    desc:"@domsarmento", url:"javascript:void(0)", copy:"49991746304" }
   ],
   gallery: [
     "./assets/galeria/media%3Agaleria1.jpg",
@@ -193,7 +195,7 @@ const CONFIG = {
   ]
 };
 
-/* ===== Ícones SVG ===== */
+/* ===== ÍCONES ===== */
 const icons = {
   wifi:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M2 8c5.5-4.5 14.5-4.5 20 0M5 11c3.8-3 10.2-3 14 0M8.5 14.5c2-1.6 5-1.6 7 0M12 20h0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
   star:`<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="m12 17.27 6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l4.46 4.73L5.82 21z"/></svg>`,
@@ -208,7 +210,7 @@ const isAndroid = /Android/i.test(ua);
 const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
 /* Helpers */
-function openAndroidWifiSettings(){try{location.href='intent:#Intent;action=android.settings.WIFI_SETTINGS;end';}catch(e){}}
+function openAndroidWifiSettings(){ try{ location.href='intent:#Intent;action=android.settings.WIFI_SETTINGS;end'; }catch(e){} }
 function toast(msg){
   let el=document.getElementById('toast');
   if(!el){ el=document.createElement('div'); el.id='toast';
@@ -221,7 +223,12 @@ function toast(msg){
 
 /* Render */
 (function(){
-  if (CONFIG.backgroundImage) document.body.style.backgroundImage = `url('${CONFIG.backgroundImage}')`;
+  // fundo (desfocado)
+  if (CONFIG.backgroundImage){
+    const bg = document.getElementById('bgLayer');
+    bg.style.backgroundImage = `url('${CONFIG.backgroundImage}')`;
+  }
+
   // header
   brandLogo.src = CONFIG.logo;
   brandName.textContent = CONFIG.brandName;
@@ -240,18 +247,14 @@ function toast(msg){
     if (isAndroid) location.href=ANDROID; else if (isIOS) location.href=IOS; else location.href=WEB;
   });
 
-  // Ações
-  const wrap = document.getElementById('actions'); wrap.innerHTML='';
+  // ações
+  const wrap=document.getElementById('actions'); wrap.innerHTML='';
   CONFIG.actions.forEach(a=>{
     const link=document.createElement('a');
-    link.className='action card';
+    link.className='action';
     link.href=a.url||'javascript:void(0)'; if(a.url?.startsWith('http')){link.target='_blank'; link.rel='noopener'}
-    link.innerHTML = `
-      <div class="icon">${icons[a.icon]||''}</div>
-      <div style="display:grid">
-        <div class="t1">${a.title}</div>
-        ${a.desc?`<div class="t2">${a.desc}</div>`:''}
-      </div>`;
+    link.innerHTML=`<div class="icon">${icons[a.icon]||''}</div>
+                    <div style="display:grid"><div class="t1">${a.title}</div>${a.desc?`<div class="t2">${a.desc}</div>`:''}</div>`;
     wrap.appendChild(link);
 
     if(a.kind==='wifi'){
@@ -270,16 +273,14 @@ function toast(msg){
     }
   });
 
-  // Galeria
-  const track = document.getElementById('carTrack');
-  track.innerHTML = (CONFIG.gallery||[]).map((src,i)=>`
-    <div class="car-slide"><img src="${src}" alt="Galeria ${i+1}" loading="lazy"></div>
-  `).join('');
-  initCarousel('galeria', 4000);
+  // galeria
+  const track=document.getElementById('carTrack');
+  track.innerHTML=(CONFIG.gallery||[]).map((src,i)=>`<div class="car-slide"><img src="${src}" alt="Galeria ${i+1}" loading="lazy"></div>`).join('');
+  initCarousel('galeria', 4200);
 })();
 
 /* Carrossel */
-function initCarousel(rootId, intervalMs=4000){
+function initCarousel(rootId, intervalMs=4200){
   const root=document.getElementById(rootId); if(!root) return;
   const track=root.querySelector('.car-track');
   const slides=[...root.querySelectorAll('.car-slide')];
@@ -294,7 +295,7 @@ function initCarousel(rootId, intervalMs=4000){
   root.addEventListener('mouseleave', ()=> paused=false);
   root.addEventListener('touchstart', ()=> paused=true, {passive:true});
   root.addEventListener('touchend', ()=> paused=false);
-  let sx=0, dx=0;
+  let sx=0,dx=0;
   root.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; }, {passive:true});
   root.addEventListener('touchmove',  e=>{ dx=e.touches[0].clientX - sx; }, {passive:true});
   root.addEventListener('touchend',   ()=>{ if(Math.abs(dx)>40){ dx<0?go(i+1):go(i-1); start(); } sx=dx=0; });
