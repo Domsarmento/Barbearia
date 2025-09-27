@@ -6,215 +6,67 @@
 <title>Dom Sarmento — Atalhos</title>
 <meta name="description" content="Atalhos rápidos e galeria de fotos." />
 <style>
-/* ===== Design Tokens (base neutra + tema âmbar) ===== */
 :root{
-  --radius:16px;
-  --shadow:0 10px 28px rgba(0,0,0,.20);
-  --shadow-soft:0 4px 14px rgba(0,0,0,.10);
-
-  /* Cores de Fundo e Texto (Dark Theme) */
-  --bg:#0b0d11;
-  --surface:#12141c;
-  --surface-2:#171a26;
-  --text:#f6f7fb;
-  --muted:#c7cbda;
-  --ring:rgba(255,255,255,.10);
-
-  /* Paleta de Dourado/Amarelo do Botão Principal */
-  --accent-1:#d3b171; /* Dourado mais suave, menos laranja */
-  --accent-2:#a17e40; /* Dourado mais escuro */
-  
-  /* Cor Dourada para Borda de Hover dos Botões */
-  --hover-border-color: rgba(211, 177, 113, 0.5); /* Cor da borda dourada semi-transparente */
-  
-  /* Cor e Degradê para o botão de PIX (Ciano/Turquesa) */
-  --pix-color:#00c0a9; /* Cor base Ciano/Turquesa do PIX */
-  --pix-color-darker: #009688; /* Cor mais escura para degradê */
-  --pix-cta-bg: linear-gradient(135deg, var(--pix-color), var(--pix-color-darker));
+  --radius:16px; --shadow:0 10px 28px rgba(0,0,0,.20); --shadow-soft:0 4px 14px rgba(0,0,0,.10);
+  --bg:#0b0d11; --surface:#12141c; --surface-2:#171a26; --text:#f6f7fb; --muted:#c7cbda; --ring:rgba(255,255,255,.10);
+  --accent-1:#f2b44b; --accent-2:#ff8f40; --accent-weak:rgba(242,180,75,.55);
 }
-/* A classe theme-amber original não será usada diretamente, as vars acima já definem. */
-.theme-amber{ 
-    /* Manter para compatibilidade, mas o código acima prevalece */
-    --accent-1:var(--accent-1); 
-    --accent-2:var(--accent-2); 
-    --accent-weak:var(--hover-border-color); /* Ajustado para usar a nova variável */
-}
-
 *{box-sizing:border-box} html,body{height:100%}
-body{
-  margin:0; font:500 16px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-  color:var(--text);
-  background:var(--bg) center/cover fixed no-repeat; /* a imagem entra via JS */
-  overflow-x:hidden;
-}
-a{color:inherit; text-decoration:none}
-img{max-width:100%; display:block}
+body{margin:0;font:500 16px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;color:var(--text);background:var(--bg) center/cover fixed no-repeat;overflow-x:hidden;}
+a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
 
-/* Degradê por cima do fundo (sem blur) */
-.bg-overlay{
-  position:fixed; inset:0; z-index:-1;
-  background:
-    radial-gradient(1100px 600px at 10% -10%, color-mix(in oklab, var(--accent-1) 28%, transparent), transparent 60%),
-    radial-gradient(1000px 650px at 110% 110%, color-mix(in oklab, var(--accent-2) 16%, transparent), transparent 60%),
-    linear-gradient(180deg, rgba(6,10,18,.38), rgba(6,10,18,.72));
-}
+/* overlay (sem blur) */
+.bg-overlay{position:fixed;inset:0;z-index:-1;background:
+  radial-gradient(1100px 600px at 10% -10%, color-mix(in oklab, var(--accent-1) 28%, transparent), transparent 60%),
+  radial-gradient(1000px 650px at 110% 110%, color-mix(in oklab, var(--accent-2) 16%, transparent), transparent 60%),
+  linear-gradient(180deg, rgba(6,10,18,.38), rgba(6,10,18,.72));}
 
-/* ===== Layout ===== */
-.wrapper{min-height:100%; display:grid; grid-template-rows:auto 1fr auto;}
-.container{ width:100%; max-width:980px; margin:0 auto; padding:24px 16px; }
+.wrapper{min-height:100%;display:grid;grid-template-rows:auto 1fr auto;}
+.container{width:100%;max-width:980px;margin:0 auto;padding:24px 16px;}
 
-/* Header */
-.header{ display:flex; flex-direction:column; align-items:flex-start; gap:12px; padding:8px 0 2px; }
-.brand-logo{ width:auto; height:86px; }            /* LOGO GRANDE */
-.brand-name-line{ display:flex; align-items:baseline; gap:10px; }
-.brand-title{font-weight:900; letter-spacing:.3px; font-size:26px}
-.brand-sub{color:var(--muted); font-size:14px; margin-top:2px}
-.big-legend{
-  margin-top:8px; font-weight:900; letter-spacing:.4px; font-size:18px;
-  color: color-mix(in oklab, var(--accent-1) 75%, #ffffff 25%);
-  text-transform: uppercase;
-}
+/* ===== HEADER CENTRALIZADO ===== */
+.header{display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 0 2px;text-align:center;}
+.brand-logo{width:auto;height:86px}
+.brand-title{font-weight:900;letter-spacing:.3px;font-size:26px}
+.brand-sub{color:var(--muted);font-size:14px;margin-top:2px}
+.big-legend{margin-top:8px;font-weight:900;letter-spacing:.4px;font-size:18px;
+  color:color-mix(in oklab, var(--accent-1) 75%, #ffffff 25%);text-transform:uppercase;text-align:center}
 
-/* Card principal */
-/* Removido o card principal do seu código original pois a imagem mostra os botões de ação direto */
-.card{ display:none; } 
+/* ===== CARD CENTRALIZADO ===== */
+.card{margin-top:14px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+  border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;border:1px solid var(--ring);text-align:center;}
+.card .cta{margin:14px auto 0;display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg, var(--accent-1), var(--accent-2));color:#0b0d14;
+  font-weight:800;padding:12px 16px;border-radius:999px;box-shadow:0 10px 24px rgba(0,0,0,.25);transition:transform .06s ease;}
+.card .cta:active{transform:translateY(1px)}
 
-/* Botões (ícones grandes) */
-.actions{margin-top:16px; display:grid; gap:14px}
-.action{
-  display:flex; align-items:center; gap:14px;
-  /* Degradê cinza escuro para o fundo dos botões como na imagem */
-  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)); 
-  border:1px solid var(--ring); border-radius:var(--radius);
-  padding:16px 18px; box-shadow:var(--shadow-soft); transition:transform .06s ease, border-color .2s ease, background .2s ease;
-}
+/* botões */
+.actions{margin-top:16px;display:grid;gap:14px}
+.action{display:flex;align-items:center;gap:14px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+  border:1px solid var(--ring);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-soft);transition:transform .06s,border-color .2s;}
+.action:active{transform:translateY(1px)} .action:hover{border-color:var(--accent-weak)}
+.action-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(180deg, var(--surface-2), var(--surface));border:1px solid var(--ring)}
+.action-title{font-weight:800;letter-spacing:.2px;font-size:17px}
+.action-desc{font-size:13px;color:var(--muted);margin-top:2px}
 
-/* Efeito Hover/Active: Fundo dourado semi-transparente e borda dourada. */
-.action:hover, .action:active{ 
-    transform:translateY(0); /* Remove o pequeno pull down no click */
-    border-color: var(--hover-border-color); /* Borda dourada semi-transparente */
-    background: linear-gradient(180deg, rgba(211, 177, 113, 0.08), rgba(211, 177, 113, 0.05)); /* Fundo dourado bem transparente */
-}
+/* ===== LEGENDA CENTRALIZADA ANTES DA GALERIA ===== */
+.gallery-pre-legend{margin-top:32px;font-size:16px;font-weight:500;text-align:center}
 
-/* Tratamento especial para o primeiro botão (Agendar) */
-.actions a:first-child{
-    /* Degradê Dourado forte */
-    background:linear-gradient(135deg, var(--accent-1), var(--accent-2));
-    color: #0b0d14; /* Texto escuro no botão dourado */
-    font-weight: 800;
-    padding: 16px 18px;
-    border: none;
-    box-shadow: 0 10px 24px rgba(0,0,0,.25);
-}
-/* No hover/active do botão principal, apenas diminuir a opacidade do fundo. */
-.actions a:first-child:hover, .actions a:first-child:active{
-    background:linear-gradient(135deg, rgba(211, 177, 113, 0.8), rgba(161, 126, 64, 0.7));
-    border: none;
-    transform: translateY(0);
-}
+/* galeria */
+.section{margin-top:16px}
+.gallery-title{text-align:center;font-weight:800;font-size:18px;margin:6px 0 12px}
+.carousel{position:relative}
+.car-viewport{overflow:hidden;border-radius:18px;border:1px solid var(--ring);box-shadow:var(--shadow);width:100%;aspect-ratio:16/9;max-height:420px;margin:auto}
+@media (max-width:520px){.car-viewport{aspect-ratio:4/3;max-height:360px}}
+.car-track{display:flex;height:100%;transition:transform .45s ease}
+.car-slide{min-width:100%;height:100%;overflow:hidden;background:#000}
+.car-slide img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.car-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:999px;border:1px solid var(--ring);
+  background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));color:#fff;font-size:24px;display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow-soft)}
+.car-arrow:hover{border-color:var(--accent-weak)} .car-arrow.prev{left:8px} .car-arrow.next{right:8px}
 
-
-.action-icon{   /* 48px */
-  width:48px; height:48px; display:grid; place-items:center; border-radius:14px;
-  background:linear-gradient(180deg, var(--surface-2), var(--surface));
-  border:1px solid var(--ring);
-}
-/* Ícone do primeiro botão (Agendar) deve ter fundo claro, como na imagem */
-.actions a:first-child .action-icon{
-    background: rgba(255,255,255, 0.25);
-    border: none;
-    color: var(--text); /* Mantém o ícone branco */
-}
-/* Ícone do PIX (cor do PIX) */
-.action[data-kind="pix"] .action-icon{
-    color: var(--pix-color);
-}
-/* Ícone do WhatsApp (cor do WA) */
-.action[data-kind="wa"] .action-icon{
-    color: #25D366; /* Verde do WhatsApp */
-}
-/* Ícone do Instagram (cor do IG) */
-.action[data-kind="ig"] .action-icon{
-    color: #E1306C; /* Cor aproximada do IG */
-}
-/* Ícone do Google (cor do Estrela/Dourado) */
-.action[data-kind="star"] .action-icon{
-    color: var(--accent-1); 
-}
-
-
-.action-title{font-weight:800; letter-spacing:.2px; font-size:17px}
-.action-desc{font-size:13px; color:var(--muted); margin-top:2px}
-.action .right{ margin-left:auto; display:none }
-
-/* Estilização para o botão de PIX com a chave de cópia */
-.action-pix-container{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
-.action-pix-info{
-    display: grid;
-}
-.action-pix-copy{
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-weight: 700;
-    color: #0b0d14;
-    background: var(--pix-cta-bg);
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-
-/* ===== Galeria / Carrossel (Manter o seu original) ===== */
-.section{ margin-top:28px; }
-.gallery-title{ font-weight:800; font-size:18px; margin:6px 0 12px 2px; }
-.carousel{ position:relative; }
-
-/* Viewport controla a ALTURA — nada vai “estourar” */
-.car-viewport{
-  overflow:hidden; border-radius:18px; border:1px solid var(--ring); box-shadow:var(--shadow);
-  width:100%;
-  aspect-ratio: 16 / 9;        /* altura proporcional */
-  max-height: 420px;           /* trava em telas altas */
-}
-@media (max-width:520px){
-  .car-viewport{ aspect-ratio: 4 / 3; max-height: 360px; }
-}
-
-/* Trilho e slides */
-.car-track{ display:flex; height:100%; transition:transform .45s ease; }
-.car-slide{ min-width:100%; height:100%; overflow:hidden; background:#000; }
-.car-slide img{
-  width:100%; height:100%;
-  object-fit: cover;           /* cobre sem distorcer e não passa dos limites */
-  object-position: center;
-  display:block;
-}
-
-/* Setas */
-.car-arrow{
-  position:absolute; top:50%; transform:translateY(-50%);
-  width:46px; height:46px; border-radius:999px; border:1px solid var(--ring);
-  background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
-  color:#fff; font-size:24px; line-height:0; display:grid; place-items:center;
-  cursor:pointer; box-shadow:var(--shadow-soft);
-}
-.car-arrow:hover{ border-color: var(--hover-border-color); }
-.car-arrow.prev{ left:8px }
-.car-arrow.next{ right:8px }
-
-/* Rodapé */
-.footer{ opacity:.85; font-size:12px; color:var(--muted); text-align:center; padding:22px 0 32px }
-
-@media (min-width:560px){
-  .brand-logo{ height:94px; }
-  .big-legend{ font-size:20px }
-  .actions{ gap:16px }
-}
+.footer{opacity:.85;font-size:12px;color:var(--muted);text-align:center;padding:22px 0 32px}
+@media (min-width:560px){.brand-logo{height:94px}.big-legend{font-size:20px}.actions{gap:16px}}
 </style>
 </head>
 <body>
@@ -222,18 +74,36 @@ img{max-width:100%; display:block}
 
   <div class="wrapper" id="app">
     <div class="container">
+      <!-- HEADER -->
       <header class="header">
         <img id="brandLogo" class="brand-logo" alt="Logo Dom Sarmento">
+        <div class="brand-title" id="brandName">Dom Sarmento</div>
+        <div class="brand-sub" id="brandSub">Barbearia • Centro</div>
         <div class="big-legend" id="bigLegend">TRADIÇÃO E ESTILO EM CADA CORTE</div>
       </header>
 
+      <!-- CARD (sem brand-sub) -->
+      <section class="card">
+        <div style="font-weight:800;font-size:18px" id="heroTitle">Agende, avalie e fale com a gente em um clique.</div>
+        <a class="cta" id="btnAgendar" href="#" target="_blank" rel="noopener">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 2v3M17 2v3M3 10h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <span id="heroCtaText">Agendar horário</span>
+        </a>
+      </section>
+
+      <!-- BOTÕES -->
       <div class="actions" id="actions"></div>
 
-      <div class="big-legend" style="margin-top: 32px; font-size: 16px; font-weight: 500; text-align: center;" id="galleryTitleLegend">
-          MAIS QUE CORTES, UMA EXPERIÊNCIA DOM SARMENTO
+      <!-- LEGENDA CENTRALIZADA ANTES DA GALERIA -->
+      <div class="gallery-pre-legend" id="galleryTitleLegend">
+        MAIS QUE CORTES, UMA EXPERIÊNCIA DOM SARMENTO
       </div>
 
+      <!-- GALERIA -->
       <section class="section">
+        <div class="gallery-title">Galeria</div>
         <div class="carousel" id="galeria">
           <button class="car-arrow prev" aria-label="Anterior">‹</button>
           <div class="car-viewport">
@@ -253,66 +123,22 @@ img{max-width:100%; display:block}
 /* ========= CONFIG ========= */
 const CONFIG = {
   theme: "theme-amber",
-
-  /* CORRI os caminhos para bater com o seu repositório */
   backgroundImage: "./background-dom-sarmento.jpg",
   logo: "./logo-dom-sarmento.png",
-
-  brandName: "Dom Sarmento", // Não usado no header final, mas mantido
-  brandSub: "Barbearia • Centro", // Não usado no header final, mas mantido
+  brandName: "Dom Sarmento",
+  brandSub: "Barbearia • Centro",
   bigLegend: "TRADIÇÃO E ESTILO EM CADA CORTE",
-
-  // O card principal foi removido, a primeira ação é o agendamento
+  heroTitle: "Agende, avalie e fale com a gente em um clique.",
   heroCta: { label: "Agendar horário", url: "#" },
-
   footer: "Dom Sarmento © 2025 • @domsarmento",
-
   wifi: { ssid: "DOMSARMENTO", password: "91011070", security: "WPA" },
-
-  /* Ações na ordem do layout da imagem */
   actions: [
-    { 
-        icon:"calendar", // Novo ícone para Agendar
-        kind:"ctaAgendar", 
-        title:"AGENDAR HORÁRIO", 
-        desc:"Reserve seu corte via Apberber", 
-        url:"javascript:void(0)"
-    },
-    { 
-        icon:"wa", 
-        kind:"wa", 
-        title:"WHATSAPP", 
-        desc:"Fale direto com recepção", 
-        url:"https://wa.me/5549991746304" 
-    },
-    { 
-        icon:"star", 
-        kind:"star",
-        title:"AVALIAÇÕES NO GOOGLE", 
-        desc:"Conte como foi sura experiência", 
-        url:"https://g.page/r/SEU_ID/review" 
-    },
-    { 
-        icon:"ig", 
-        kind:"ig",
-        title:"INSTAGRAM OFICIAL", 
-        desc:"@domsarmento", 
-        url:"https://instagram.com/domsarmento" 
-    },
-    { 
-        icon:"pix", 
-        kind:"pix", // 'pix' para o botão de PIX com cópia
-        title:"PAGAMENTO VIA PIX", 
-        desc:"@domsarmento", 
-        url:"javascript:void(0)", 
-        copy:"49991746304", 
-        copyText: "COPRIAR CHAVE" // Texto para o botão de cópia
-    }
-    // Removido o Wi-Fi para manter 5 botões como na imagem
-    // { icon:"wifi", kind:"wifi", title:"Conectar ao Wi-Fi", desc:"Internet liberada para clientes", url:"#"},
+    { icon:"wifi", kind:"wifi", title:"Conectar ao Wi-Fi", desc:"Internet liberada para clientes", url:"#"},
+    { icon:"star", title:"Avaliações no Google", desc:"Conte como foi a sua experiência", url:"https://g.page/r/SEU_ID/review" },
+    { icon:"ig", title:"Instagram oficial", desc:"@domsarmento", url:"https://instagram.com/domsarmento" },
+    { icon:"wa", title:"WhatsApp", desc:"Fale direto com recepção", url:"https://wa.me/5549991746304" },
+    { icon:"pix", kind:"copyAnywhere", title:"Pagamento via PIX", desc:"@domsarmento", url:"javascript:void(0)", copy:"49991746304" }
   ],
-
-  /* Usei os nomes com dois-pontos (URL encoded) que estão na pasta */
   gallery: [
     "./assets/galeria/media%3Agaleria1.jpg",
     "./assets/galeria/media%3Agaleria2.jpg",
@@ -321,10 +147,9 @@ const CONFIG = {
   ]
 };
 
-/* ========= Ícones (26px) ========= */
+/* ========= Ícones ========= */
 const icons = {
-  // Ícone de Calendário para Agendar
-  calendar:`<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 2v3M17 2v3M3 10h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  wifi:`<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M2 8c5.5-4.5 14.5-4.5 20 0M5 11c3.8-3 10.2-3 14 0M8.5 14.5c2-1.6 5-1.6 7 0M12 20h0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
   star:`<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="m12 17.27 6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l4.46 4.73L5.82 21z"/></svg>`,
   ig:`<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>`,
   wa:`<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 19l1.2-4A8 8 0 1 1 20 12a8 8 0 0 1-11 7l-5 0z" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 9.5c0 4 3.5 6 5 6 .5 0 1.5-.5 1.5-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
@@ -337,129 +162,75 @@ const isAndroid = /Android/i.test(ua);
 const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
 /* ========= Utils ========= */
+function openAndroidWifiSettings(){try{window.location.href='intent:#Intent;action=android.settings.WIFI_SETTINGS;end';}catch(e){}}
 function toast(msg){
   let el=document.getElementById('toast');
-  if(!el){ el=document.createElement('div'); el.id='toast';
-    Object.assign(el.style,{position:'fixed',left:'50%',bottom:'22px',transform:'translateX(-50%)',padding:'10px 14px',borderRadius:'10px',fontSize:'14px',background:'rgba(0,0,0,.85)',color:'#fff',zIndex:'9999',transition:'opacity .2s'}); document.body.appendChild(el);
-  }
+  if(!el){el=document.createElement('div');el.id='toast';
+    Object.assign(el.style,{position:'fixed',left:'50%',bottom:'22px',transform:'translateX(-50%)',padding:'10px 14px',borderRadius:'10px',fontSize:'14px',background:'rgba(0,0,0,.85)',color:'#fff',zIndex:'9999',transition:'opacity .2s'});document.body.appendChild(el);}
   el.textContent=msg; el.style.opacity='1'; setTimeout(()=>el.style.opacity='0',1600);
 }
 
 /* ========= Render ========= */
 (function init(){
   document.documentElement.classList.add(CONFIG.theme || 'theme-amber');
+  if(CONFIG.backgroundImage){ document.body.style.backgroundImage = `url('${CONFIG.backgroundImage}')`; }
 
-  /* aplica a IMAGEM DE FUNDO no body */
-  if (CONFIG.backgroundImage) {
-    document.body.style.backgroundImage = `url('${CONFIG.backgroundImage}')`;
-  }
-
-  const $ = (id)=>document.getElementById(id);
-  
-  // Renderiza elementos do Header
+  const $=(id)=>document.getElementById(id);
   $('brandLogo').src = CONFIG.logo;
+  $('brandName').textContent = CONFIG.brandName;
+  $('brandSub').textContent  = CONFIG.brandSub;
   $('bigLegend').textContent = CONFIG.bigLegend || '';
+  $('heroTitle').textContent = CONFIG.heroTitle;
+  $('heroCtaText').textContent = CONFIG.heroCta?.label || 'Agendar horário';
   $('footer').textContent = CONFIG.footer || '';
 
-  // Ações
-  const actionsEl = $('actions'); actionsEl.innerHTML = '';
+  // botões
+  const el=$('actions'); el.innerHTML='';
   CONFIG.actions.forEach(a=>{
-    const li = document.createElement('a');
-    li.className = 'action';
-    li.href = a.url || 'javascript:void(0)';
-    li.setAttribute('data-kind', a.kind); // Adiciona o data-kind para estilização
+    const li=document.createElement('a');
+    li.className='action'; li.href=a.url||'javascript:void(0)';
+    if(a.url?.startsWith('http')){li.target='_blank';li.rel='noopener';}
+    li.innerHTML=`<div class="action-icon">${icons[a.icon]||''}</div>
+      <div style="display:grid"><div class="action-title">${a.title}</div>${a.desc?`<div class="action-desc">${a.desc}</div>`:''}</div>`;
+    el.appendChild(li);
 
-    if(a.url?.startsWith('http')){ li.target = '_blank'; li.rel = 'noopener'; }
-    
-    if (a.kind === 'pix') {
-        // Layout especial para o PIX com botão de cópia
-        li.innerHTML = `
-          <div class="action-icon">${icons[a.icon] || ''}</div>
-          <div class="action-pix-container">
-            <div class="action-pix-info">
-              <div class="action-title">${a.title}</div>
-              ${a.desc ? `<div class="action-desc">${a.desc}</div>`:''}
-            </div>
-            <div class="action-pix-copy" data-copy-value="${a.copy}">${a.copyText || 'COPIAR CHAVE'}</div>
-          </div>
-        `;
-        // Adiciona o listener de cópia ao botão de cópia interno
-        li.querySelector('.action-pix-copy').addEventListener('click', async (ev)=>{
-          ev.preventDefault();
-          ev.stopPropagation(); // Evita que o clique no botão interno dispare a ação do link externo (se houver)
-          const copyValue = ev.target.getAttribute('data-copy-value');
-          if (copyValue) {
-            try { await navigator.clipboard.writeText(copyValue); } catch(e){}
-            toast('Chave PIX copiada');
-          }
-        }, {passive:false});
-
-    } else {
-        // Layout padrão
-        li.innerHTML = `
-          <div class="action-icon">${icons[a.icon] || ''}</div>
-          <div style="display:grid">
-            <div class="action-title">${a.title}</div>
-            ${a.desc ? `<div class="action-desc">${a.desc}</div>`:''}
-          </div>
-          <div class="right"></div>
-        `;
+    if(a.kind==='wifi'){
+      li.addEventListener('click',async ev=>{ev.preventDefault();try{await navigator.clipboard.writeText(CONFIG.wifi?.password||'');}catch(e){} toast('Senha do Wi-Fi copiada'); if(isAndroid) openAndroidWifiSettings();},{passive:false});
     }
-
-    actionsEl.appendChild(li);
-
-    // Adiciona o listener de redirecionamento do botão AGENDAR (primeira ação)
-    if (a.kind === 'ctaAgendar') {
-        const ANDROID_STORE='https://play.google.com/store/apps/details?id=br.com.starapp.appbarbercli';
-        const IOS_STORE='https://apps.apple.com/br/app/appbarber-cliente/id6450795073';
-        const WEB_FALLBACK='https://sistema.appbarber.com.br/login.php';
-        li.addEventListener('click',(e)=>{
-            e.preventDefault();
-            if (isAndroid)      window.location.href = ANDROID_STORE;
-            else if (isIOS)     window.location.href = IOS_STORE;
-            else                window.location.href = WEB_FALLBACK;
-        });
+    if(a.kind==='copyAnywhere'&&a.copy){
+      li.addEventListener('click',async ev=>{ev.preventDefault();try{await navigator.clipboard.writeText(a.copy);}catch(e){} toast('Chave PIX copiada');},{passive:false});
     }
-
   });
 
-  // Galeria (renderiza só as imagens existentes)
-  const track = document.getElementById('carTrack');
-  track.innerHTML = (CONFIG.gallery || []).map((src,i)=>(
-    `<div class="car-slide"><img src="${src}" alt="Galeria ${i+1}" loading="lazy"></div>`
-  )).join('');
-  initCarousel('galeria', 4000);
+  // agendar
+  const btn=$('btnAgendar');
+  const ANDROID='https://play.google.com/store/apps/details?id=br.com.starapp.appbarbercli';
+  const IOS='https://apps.apple.com/br/app/appbarber-cliente/id6450795073';
+  const WEB='https://sistema.appbarber.com.br/login.php';
+  btn.addEventListener('click',e=>{e.preventDefault(); if(isAndroid)location.href=ANDROID; else if(isIOS)location.href=IOS; else location.href=WEB;});
+
+  // galeria
+  const track=$('carTrack');
+  track.innerHTML=(CONFIG.gallery||[]).map((src,i)=>`<div class="car-slide"><img src="${src}" alt="Galeria ${i+1}" loading="lazy"></div>`).join('');
+  initCarousel('galeria',4000);
 })();
 
-/* ===== Carrossel (Manter o seu original) ===== */
+/* ===== Carrossel ===== */
 function initCarousel(rootId, intervalMs=4000){
-  const root   = document.getElementById(rootId || 'galeria');
-  if(!root) return;
-  const track  = root.querySelector('.car-track');
-  const slides = Array.from(root.querySelectorAll('.car-slide'));
-  const prev   = root.querySelector('.prev');
-  const next   = root.querySelector('.next');
-  let index = 0, timer, paused = false;
-
-  function go(i){ index = (i + slides.length) % slides.length; track.style.transform = `translateX(${-index*100}%)`; }
-  function start(){ stop(); timer = setInterval(()=>{ if(!paused) go(index+1); }, intervalMs); }
-  function stop(){ if(timer) clearInterval(timer); }
-
-  prev.addEventListener('click', ()=>{ go(index-1); start(); });
-  next.addEventListener('click', ()=>{ go(index+1); start(); });
-
-  root.addEventListener('mouseenter', ()=> paused = true);
-  root.addEventListener('mouseleave', ()=> paused = false);
-  root.addEventListener('touchstart', ()=> paused = true, {passive:true});
-  root.addEventListener('touchend', ()=> paused = false);
-
-  let sx=0, dx=0;
-  root.addEventListener('touchstart', e=>{ sx = e.touches[0].clientX; }, {passive:true});
-  root.addEventListener('touchmove',  e=>{ dx = e.touches[0].clientX - sx; }, {passive:true});
-  root.addEventListener('touchend',   ()=>{ if(Math.abs(dx) > 40){ dx<0 ? go(index+1) : go(index-1); start(); } sx=dx=0; });
-
-  document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden') stop(); else start(); });
-
+  const root=document.getElementById(rootId||'galeria'); if(!root) return;
+  const track=root.querySelector('.car-track'), slides=[...root.querySelectorAll('.car-slide')];
+  const prev=root.querySelector('.prev'), next=root.querySelector('.next');
+  let index=0,timer,paused=false;
+  function go(i){index=(i+slides.length)%slides.length; track.style.transform=`translateX(${-index*100}%)`;}
+  function start(){stop(); timer=setInterval(()=>{if(!paused) go(index+1);},intervalMs);}
+  function stop(){if(timer) clearInterval(timer);}
+  prev.addEventListener('click',()=>{go(index-1);start();}); next.addEventListener('click',()=>{go(index+1);start();});
+  root.addEventListener('mouseenter',()=>paused=true); root.addEventListener('mouseleave',()=>paused=false);
+  root.addEventListener('touchstart',()=>paused=true,{passive:true}); root.addEventListener('touchend',()=>paused=false);
+  let sx=0,dx=0; root.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+  root.addEventListener('touchmove',e=>{dx=e.touches[0].clientX-sx;},{passive:true});
+  root.addEventListener('touchend',()=>{if(Math.abs(dx)>40){dx<0?go(index+1):go(index-1);start();} sx=dx=0;});
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden') stop(); else start();});
   go(0); start();
 }
 </script>
