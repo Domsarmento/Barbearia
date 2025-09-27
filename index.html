@@ -4,69 +4,113 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Dom Sarmento — Atalhos</title>
-<meta name="description" content="Atalhos rápidos e galeria de fotos." />
 <style>
 :root{
   --radius:16px; --shadow:0 10px 28px rgba(0,0,0,.20); --shadow-soft:0 4px 14px rgba(0,0,0,.10);
   --bg:#0b0d11; --surface:#12141c; --surface-2:#171a26; --text:#f6f7fb; --muted:#c7cbda; --ring:rgba(255,255,255,.10);
   --accent-1:#f2b44b; --accent-2:#ff8f40; --accent-weak:rgba(242,180,75,.55);
+
+  /* paleta metálica dos botões */
+  --metal-hi:#3f444d;   /* highlight */
+  --metal-mid:#2b2f37;  /* meio */
+  --metal-lo:#1c2027;   /* sombra */
+  --metal-gloss:rgba(255,255,255,.08);
 }
 *{box-sizing:border-box} html,body{height:100%}
-body{margin:0;font:500 16px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;color:var(--text);background:var(--bg) center/cover fixed no-repeat;overflow-x:hidden;}
+body{
+  margin:0;font:500 16px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+  color:var(--text);
+  background:var(--bg) center/cover fixed no-repeat; /* foto entra via JS */
+  overflow-x:hidden;
+}
 a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
 
-/* overlay (sem blur) */
+/* degradê por cima da foto (sem blur) */
 .bg-overlay{position:fixed;inset:0;z-index:-1;background:
   radial-gradient(1100px 600px at 10% -10%, color-mix(in oklab, var(--accent-1) 28%, transparent), transparent 60%),
   radial-gradient(1000px 650px at 110% 110%, color-mix(in oklab, var(--accent-2) 16%, transparent), transparent 60%),
   linear-gradient(180deg, rgba(6,10,18,.38), rgba(6,10,18,.72));}
 
+/* layout */
 .wrapper{min-height:100%;display:grid;grid-template-rows:auto 1fr auto;}
 .container{width:100%;max-width:980px;margin:0 auto;padding:24px 16px;}
 
-/* ===== HEADER CENTRALIZADO ===== */
+/* header centralizado */
 .header{display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 0 2px;text-align:center;}
-.brand-logo{width:auto;height:86px}
-.brand-title{font-weight:900;letter-spacing:.3px;font-size:26px}
+.brand-logo{width:auto;height:120px}   /* >>> logo maior */
+.brand-title{font-weight:900;letter-spacing:.3px;font-size:28px}
 .brand-sub{color:var(--muted);font-size:14px;margin-top:2px}
 .big-legend{margin-top:8px;font-weight:900;letter-spacing:.4px;font-size:18px;
-  color:color-mix(in oklab, var(--accent-1) 75%, #ffffff 25%);text-transform:uppercase;text-align:center}
+  color:color-mix(in oklab, var(--accent-1) 75%, #ffffff 25%);text-transform:uppercase}
 
-/* ===== CARD CENTRALIZADO ===== */
-.card{margin-top:14px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-  border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;border:1px solid var(--ring);text-align:center;}
-.card .cta{margin:14px auto 0;display:inline-flex;align-items:center;gap:10px;
-  background:linear-gradient(135deg, var(--accent-1), var(--accent-2));color:#0b0d14;
-  font-weight:800;padding:12px 16px;border-radius:999px;box-shadow:0 10px 24px rgba(0,0,0,.25);transition:transform .06s ease;}
-.card .cta:active{transform:translateY(1px)}
+/* card (texto à esquerda para o CTA entrar no mesmo fluxo dos botões) */
+.card{margin-top:14px;background:linear-gradient(180deg, rgba(0,0,0,.26), rgba(0,0,0,.18));
+  border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;border:1px solid var(--ring);text-align:left;}
+.card-title{font-weight:800;font-size:20px;margin-bottom:10px}
 
-/* botões */
+/* estilo metálico compartilhado (botões + CTA) */
+.metal{
+  background:
+    linear-gradient(180deg, var(--metal-gloss), transparent 40%),
+    linear-gradient(160deg, var(--metal-hi), var(--metal-mid) 55%, var(--metal-lo));
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 10px 24px rgba(0,0,0,.25);
+}
+
+/* CTA agora é um “action” igual aos demais */
+.cta-action{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;border-radius:var(--radius);
+  transition:transform .06s ease,border-color .2s ease;
+}
+.cta-action:active{transform:translateY(1px)}
+.cta-icon{
+  width:48px;height:48px;display:grid;place-items:center;border-radius:14px;
+  background:linear-gradient(180deg, var(--surface-2), var(--surface));
+  border:1px solid var(--ring);
+}
+.cta-texts{display:grid}
+.cta-title{font-weight:800;letter-spacing:.2px;font-size:17px}
+
+/* lista de ações */
 .actions{margin-top:16px;display:grid;gap:14px}
-.action{display:flex;align-items:center;gap:14px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-  border:1px solid var(--ring);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-soft);transition:transform .06s,border-color .2s;}
-.action:active{transform:translateY(1px)} .action:hover{border-color:var(--accent-weak)}
-.action-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(180deg, var(--surface-2), var(--surface));border:1px solid var(--ring)}
+.action{
+  display:flex;align-items:center;gap:14px;border-radius:var(--radius);
+  padding:16px 18px;transition:transform .06s ease,border-color .2s ease;
+}
+.action.metal:hover{border-color:var(--accent-weak)}
+.action:active{transform:translateY(1px)}
+.action-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;
+  background:linear-gradient(180deg, var(--surface-2), var(--surface));border:1px solid var(--ring)}
 .action-title{font-weight:800;letter-spacing:.2px;font-size:17px}
 .action-desc{font-size:13px;color:var(--muted);margin-top:2px}
 
-/* ===== LEGENDA CENTRALIZADA ANTES DA GALERIA ===== */
+/* legenda antes da galeria */
 .gallery-pre-legend{margin-top:32px;font-size:16px;font-weight:500;text-align:center}
 
-/* galeria */
+/* galeria — caber SEM cortar */
 .section{margin-top:16px}
 .gallery-title{text-align:center;font-weight:800;font-size:18px;margin:6px 0 12px}
 .carousel{position:relative}
-.car-viewport{overflow:hidden;border-radius:18px;border:1px solid var(--ring);box-shadow:var(--shadow);width:100%;aspect-ratio:16/9;max-height:420px;margin:auto}
+.car-viewport{
+  overflow:hidden;border-radius:18px;border:1px solid var(--ring);box-shadow:var(--shadow);
+  width:100%;aspect-ratio:16/9;max-height:420px;margin:auto;background:#0a0a0a;
+}
 @media (max-width:520px){.car-viewport{aspect-ratio:4/3;max-height:360px}}
 .car-track{display:flex;height:100%;transition:transform .45s ease}
-.car-slide{min-width:100%;height:100%;overflow:hidden;background:#000}
-.car-slide img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.car-slide{min-width:100%;height:100%;display:grid;place-items:center;background:#0a0a0a}
+.car-slide img{
+  max-width:100%;max-height:100%;
+  width:auto;height:auto;
+  object-fit:contain;               /* >>> faz caber, sem “explodir” */
+  display:block;
+}
 .car-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:999px;border:1px solid var(--ring);
   background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));color:#fff;font-size:24px;display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow-soft)}
 .car-arrow:hover{border-color:var(--accent-weak)} .car-arrow.prev{left:8px} .car-arrow.next{right:8px}
 
 .footer{opacity:.85;font-size:12px;color:var(--muted);text-align:center;padding:22px 0 32px}
-@media (min-width:560px){.brand-logo{height:94px}.big-legend{font-size:20px}.actions{gap:16px}}
+@media (min-width:560px){.brand-logo{height:136px}.big-legend{font-size:20px}.actions{gap:16px}}
 </style>
 </head>
 <body>
@@ -82,21 +126,23 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
         <div class="big-legend" id="bigLegend">TRADIÇÃO E ESTILO EM CADA CORTE</div>
       </header>
 
-      <!-- CARD (sem brand-sub) -->
+      <!-- CARD (CTA na esquerda e igual aos botões) -->
       <section class="card">
-        <div style="font-weight:800;font-size:18px" id="heroTitle">Agende, avalie e fale com a gente em um clique.</div>
-        <a class="cta" id="btnAgendar" href="#" target="_blank" rel="noopener">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 2v3M17 2v3M3 10h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          <span id="heroCtaText">Agendar horário</span>
+        <div class="card-title" id="heroTitle">Agende, avalie e fale com a gente em um clique.</div>
+        <a class="cta-action metal" id="btnAgendar" href="#" target="_blank" rel="noopener">
+          <div class="cta-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 2v3M17 2v3M3 10h18M4 6h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cta-texts"><div class="cta-title" id="heroCtaText">Agendar horário</div></div>
         </a>
       </section>
 
       <!-- BOTÕES -->
       <div class="actions" id="actions"></div>
 
-      <!-- LEGENDA CENTRALIZADA ANTES DA GALERIA -->
+      <!-- LEGENDA ANTES DA GALERIA -->
       <div class="gallery-pre-legend" id="galleryTitleLegend">
         MAIS QUE CORTES, UMA EXPERIÊNCIA DOM SARMENTO
       </div>
@@ -120,24 +166,23 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
   </div>
 
 <script>
-/* ========= CONFIG ========= */
+/* CONFIG (use os nomes que estão no seu repositório) */
 const CONFIG = {
-  theme: "theme-amber",
   backgroundImage: "./background-dom-sarmento.jpg",
   logo: "./logo-dom-sarmento.png",
   brandName: "Dom Sarmento",
   brandSub: "Barbearia • Centro",
   bigLegend: "TRADIÇÃO E ESTILO EM CADA CORTE",
   heroTitle: "Agende, avalie e fale com a gente em um clique.",
-  heroCta: { label: "Agendar horário", url: "#" },
+  heroCta: { label: "Agendar horário" },
   footer: "Dom Sarmento © 2025 • @domsarmento",
   wifi: { ssid: "DOMSARMENTO", password: "91011070", security: "WPA" },
   actions: [
-    { icon:"wifi", kind:"wifi", title:"Conectar ao Wi-Fi", desc:"Internet liberada para clientes", url:"#"},
-    { icon:"star", title:"Avaliações no Google", desc:"Conte como foi a sua experiência", url:"https://g.page/r/SEU_ID/review" },
-    { icon:"ig", title:"Instagram oficial", desc:"@domsarmento", url:"https://instagram.com/domsarmento" },
-    { icon:"wa", title:"WhatsApp", desc:"Fale direto com recepção", url:"https://wa.me/5549991746304" },
-    { icon:"pix", kind:"copyAnywhere", title:"Pagamento via PIX", desc:"@domsarmento", url:"javascript:void(0)", copy:"49991746304" }
+    { icon:"wifi", kind:"wifi", class:"metal", title:"Conectar ao Wi-Fi", desc:"Internet liberada para clientes", url:"#"},
+    { icon:"star", class:"metal", title:"Avaliações no Google", desc:"Conte como foi a sua experiência", url:"https://g.page/r/SEU_ID/review" },
+    { icon:"ig", class:"metal", title:"Instagram oficial", desc:"@domsarmento", url:"https://instagram.com/domsarmento" },
+    { icon:"wa", class:"metal", title:"WhatsApp", desc:"Fale direto com recepção", url:"https://wa.me/5549991746304" },
+    { icon:"pix", kind:"copyAnywhere", class:"metal", title:"Pagamento via PIX", desc:"@domsarmento", url:"javascript:void(0)", copy:"49991746304" }
   ],
   gallery: [
     "./assets/galeria/media%3Agaleria1.jpg",
@@ -147,7 +192,7 @@ const CONFIG = {
   ]
 };
 
-/* ========= Ícones ========= */
+/* Ícones */
 const icons = {
   wifi:`<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M2 8c5.5-4.5 14.5-4.5 20 0M5 11c3.8-3 10.2-3 14 0M8.5 14.5c2-1.6 5-1.6 7 0M12 20h0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
   star:`<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="m12 17.27 6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l4.46 4.73L5.82 21z"/></svg>`,
@@ -156,12 +201,12 @@ const icons = {
   pix:`<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M8 4 4 8l4 4 4-4L8 4Zm4 4 4-4 4 4-4 4-4-4Zm-4 4-4 4 4 4 4-4-4-4Zm4 4 4-4 4 4-4 4-4-4Z" stroke="currentColor" stroke-width="1.4"/></svg>`
 };
 
-/* ========= Plataforma ========= */
+/* plataforma */
 const ua = navigator.userAgent || navigator.vendor || window.opera;
 const isAndroid = /Android/i.test(ua);
 const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
-/* ========= Utils ========= */
+/* helpers */
 function openAndroidWifiSettings(){try{window.location.href='intent:#Intent;action=android.settings.WIFI_SETTINGS;end';}catch(e){}}
 function toast(msg){
   let el=document.getElementById('toast');
@@ -170,10 +215,9 @@ function toast(msg){
   el.textContent=msg; el.style.opacity='1'; setTimeout(()=>el.style.opacity='0',1600);
 }
 
-/* ========= Render ========= */
+/* render */
 (function init(){
-  document.documentElement.classList.add(CONFIG.theme || 'theme-amber');
-  if(CONFIG.backgroundImage){ document.body.style.backgroundImage = `url('${CONFIG.backgroundImage}')`; }
+  if (CONFIG.backgroundImage) document.body.style.backgroundImage = `url('${CONFIG.backgroundImage}')`;
 
   const $=(id)=>document.getElementById(id);
   $('brandLogo').src = CONFIG.logo;
@@ -184,45 +228,45 @@ function toast(msg){
   $('heroCtaText').textContent = CONFIG.heroCta?.label || 'Agendar horário';
   $('footer').textContent = CONFIG.footer || '';
 
-  // botões
-  const el=$('actions'); el.innerHTML='';
-  CONFIG.actions.forEach(a=>{
-    const li=document.createElement('a');
-    li.className='action'; li.href=a.url||'javascript:void(0)';
-    if(a.url?.startsWith('http')){li.target='_blank';li.rel='noopener';}
-    li.innerHTML=`<div class="action-icon">${icons[a.icon]||''}</div>
-      <div style="display:grid"><div class="action-title">${a.title}</div>${a.desc?`<div class="action-desc">${a.desc}</div>`:''}</div>`;
-    el.appendChild(li);
-
-    if(a.kind==='wifi'){
-      li.addEventListener('click',async ev=>{ev.preventDefault();try{await navigator.clipboard.writeText(CONFIG.wifi?.password||'');}catch(e){} toast('Senha do Wi-Fi copiada'); if(isAndroid) openAndroidWifiSettings();},{passive:false});
-    }
-    if(a.kind==='copyAnywhere'&&a.copy){
-      li.addEventListener('click',async ev=>{ev.preventDefault();try{await navigator.clipboard.writeText(a.copy);}catch(e){} toast('Chave PIX copiada');},{passive:false});
-    }
-  });
-
-  // agendar
-  const btn=$('btnAgendar');
+  // CTA (agenda)
+  const btn = $('btnAgendar');
   const ANDROID='https://play.google.com/store/apps/details?id=br.com.starapp.appbarbercli';
   const IOS='https://apps.apple.com/br/app/appbarber-cliente/id6450795073';
   const WEB='https://sistema.appbarber.com.br/login.php';
   btn.addEventListener('click',e=>{e.preventDefault(); if(isAndroid)location.href=ANDROID; else if(isIOS)location.href=IOS; else location.href=WEB;});
 
-  // galeria
+  // Botões
+  const wrap=$('actions'); wrap.innerHTML='';
+  CONFIG.actions.forEach(a=>{
+    const el=document.createElement('a');
+    el.className=`action ${a.class||'metal'}`;
+    el.href=a.url||'javascript:void(0)'; if(a.url?.startsWith('http')){el.target='_blank';el.rel='noopener';}
+    el.innerHTML=`<div class="action-icon">${icons[a.icon]||''}</div>
+      <div style="display:grid"><div class="action-title">${a.title}</div>${a.desc?`<div class="action-desc">${a.desc}</div>`:''}</div>`;
+    wrap.appendChild(el);
+
+    if(a.kind==='wifi'){
+      el.addEventListener('click',async ev=>{ev.preventDefault();try{await navigator.clipboard.writeText(CONFIG.wifi?.password||'');}catch(e){} toast('Senha do Wi-Fi copiada'); if(isAndroid) openAndroidWifiSettings();});
+    }
+    if(a.kind==='copyAnywhere'&&a.copy){
+      el.addEventListener('click',async ev=>{ev.preventDefault();try{await navigator.clipboard.writeText(a.copy);}catch(e){} toast('Chave PIX copiada');});
+    }
+  });
+
+  // Galeria
   const track=$('carTrack');
   track.innerHTML=(CONFIG.gallery||[]).map((src,i)=>`<div class="car-slide"><img src="${src}" alt="Galeria ${i+1}" loading="lazy"></div>`).join('');
   initCarousel('galeria',4000);
 })();
 
-/* ===== Carrossel ===== */
+/* carrossel */
 function initCarousel(rootId, intervalMs=4000){
   const root=document.getElementById(rootId||'galeria'); if(!root) return;
   const track=root.querySelector('.car-track'), slides=[...root.querySelectorAll('.car-slide')];
   const prev=root.querySelector('.prev'), next=root.querySelector('.next');
   let index=0,timer,paused=false;
   function go(i){index=(i+slides.length)%slides.length; track.style.transform=`translateX(${-index*100}%)`;}
-  function start(){stop(); timer=setInterval(()=>{if(!paused) go(index+1);},intervalMs);}
+  function start(){stop(); timer=setInterval(()=>{ if(!paused) go(index+1); },intervalMs);}
   function stop(){if(timer) clearInterval(timer);}
   prev.addEventListener('click',()=>{go(index-1);start();}); next.addEventListener('click',()=>{go(index+1);start();});
   root.addEventListener('mouseenter',()=>paused=true); root.addEventListener('mouseleave',()=>paused=false);
